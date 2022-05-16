@@ -29,7 +29,13 @@ let playerSelection
 
 function playRound(playerSelection, computerSelection) {
 
+    if (playerScore >= 5 || computerScore >= 5) {
+        return;
+    }
+
     computerSelection = computerPlay()
+
+    let message
     
     let btn = this.outerHTML
 
@@ -37,49 +43,62 @@ function playRound(playerSelection, computerSelection) {
         if (btn == "<button>Rock</button>") return "rock";
         if (btn == "<button>Paper</button>") return "paper";
         if (btn == "<button>Scissors</button>") return "scissors";
-    
     }
 
     playerSelection = convertHTML()
 
-
     if (playerSelection == computerSelection) {
-        console.log("It's a tie!")
+        message = ("It's a tie!")
     }
     
     else if (playerSelection == "rock" && computerSelection == "scissors") {
         playerScore = (playerScore + 1)
-        console.log("Congrats, you won! The rock beaten the scissors");
+        message = ("Congrats, you won! The rock beaten the scissors");
     }
 
     else if (playerSelection == "paper" && computerSelection == "rock") {
         playerScore = (playerScore + 1)
-        console.log("Congrats, you won! The paper beaten the rock")
+        message = ("Congrats, you won! The paper beaten the rock")
     }
 
     else if (playerSelection == "scissors" && computerSelection == "paper") {
         playerScore = (playerScore + 1)
-        console.log("Congrats, you won! The scissors beaten the paper")
+        message = ("Congrats, you won! The scissors beaten the paper")
     }
 
     else if (computerSelection == "rock" && playerSelection == "scissors") {
         computerScore = (computerScore + 1)
-        console.log("Oh no, you lost! The rock beaten the scissors")
+        message = ("Oh no, you lost! The rock beaten the scissors")
     }
 
     else if (computerSelection == "paper" && playerSelection == "rock") {
         computerScore = (computerScore + 1)
-        console.log("Oh no, you lost! The paper beaten the rock")
+        message = ("Oh no, you lost! The paper beaten the rock")
     }
 
     else if (computerSelection == "scissors" && playerSelection == "paper") {
         computerScore = (computerScore + 1)
-        console.log("Oh no, you lost! The scissors beaten the paper")
+        message = ("Oh no, you lost! The scissors beaten the paper")
     }
 
     else {
-        console.log("Error! Problem with the input")
+        message = ("Error! Problem with the input")
     }
+
+    if (playerScore >= 5) {
+        message = playerScore + "-" + computerScore + "! You won the game!";
+        div.textContent = message;
+        return;
+    }
+
+    if (computerScore >= 5) {
+        message = playerScore + "-" + computerScore + "! You lost the game!";
+        div.textContent = message;
+        return;
+    }
+
+    div.textContent = message + " - Result: " + playerScore + "-" + computerScore
+
 
 }
 
@@ -87,5 +106,10 @@ const buttons = document.querySelectorAll('button')
 
 buttons.forEach(btn => btn.addEventListener('click', playRound))
 
+const body = document.querySelector('body')
+
+const div = document.createElement('div')
+div.textContent = "Result: " + playerScore + "-" + computerScore
+body.appendChild(div)
 
 
