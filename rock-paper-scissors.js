@@ -20,75 +20,72 @@ function getRandomIntInclusive(min, max) {
 
 let computerSelection
 
-let playerSelection
-
 let playerScore = 0
 
 let computerScore = 0
 
+let playerSelection
+
+
 function playRound(playerSelection, computerSelection) {
 
     computerSelection = computerPlay()
+    
+    let btn = this.outerHTML
 
-    playerSelection = prompt("Rock, paper, or scissors?", "").toLowerCase()
+    function convertHTML() {
+        if (btn == "<button>Rock</button>") return "rock";
+        if (btn == "<button>Paper</button>") return "paper";
+        if (btn == "<button>Scissors</button>") return "scissors";
+    
+    }
+
+    playerSelection = convertHTML()
+
 
     if (playerSelection == computerSelection) {
-        return ("It's a tie!")
+        console.log("It's a tie!")
     }
     
     else if (playerSelection == "rock" && computerSelection == "scissors") {
         playerScore = (playerScore + 1)
-        return ("Congrats, you won! The rock beaten the scissors");
+        console.log("Congrats, you won! The rock beaten the scissors");
     }
 
     else if (playerSelection == "paper" && computerSelection == "rock") {
         playerScore = (playerScore + 1)
-        return ("Congrats, you won! The paper beaten the rock")
+        console.log("Congrats, you won! The paper beaten the rock")
     }
 
     else if (playerSelection == "scissors" && computerSelection == "paper") {
         playerScore = (playerScore + 1)
-        return ("Congrats, you won! The scissors beaten the paper")
+        console.log("Congrats, you won! The scissors beaten the paper")
     }
 
     else if (computerSelection == "rock" && playerSelection == "scissors") {
         computerScore = (computerScore + 1)
-        return ("Oh no, you lost! The rock beaten the scissors")
+        console.log("Oh no, you lost! The rock beaten the scissors")
     }
 
     else if (computerSelection == "paper" && playerSelection == "rock") {
         computerScore = (computerScore + 1)
-        return ("Oh no, you lost! The paper beaten the rock")
+        console.log("Oh no, you lost! The paper beaten the rock")
     }
 
     else if (computerSelection == "scissors" && playerSelection == "paper") {
         computerScore = (computerScore + 1)
-        return ("Oh no, you lost! The scissors beaten the paper")
+        console.log("Oh no, you lost! The scissors beaten the paper")
     }
 
     else {
-        return ("Error! Problem with the input")
+        console.log("Error! Problem with the input")
     }
 
 }
 
-function game() {
-    
-    for (let i = 0; i < 5; i++) {
-        console.log(playRound(playerSelection, computerSelection).concat(" - ", playerScore, "-", computerScore));
-    }
+const buttons = document.querySelectorAll('button')
 
-    if (playerScore > computerScore) {
-        console.log("You won the game! The final result is ", playerScore, "-", computerScore)
-    }
+buttons.forEach(btn => btn.addEventListener('click', playRound))
 
-    else if (playerScore < computerScore) {
-        console.log("Bad luck, you lost the game! The final result is ", playerScore, "-", computerScore)
-    }
-
-    else {
-        console.log("It's a tie! The final result is ", playerScore, "-", computerScore)
-    }
-}
 
 
